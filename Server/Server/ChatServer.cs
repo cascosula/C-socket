@@ -11,7 +11,9 @@ namespace Server
     {
         List<ChatSocket> clientList = new List<ChatSocket>();
         List<string> userList = new List<string>();
-        //List<ChatroomInfo> chatroomList= new List<ChatroomInfo>();
+        List<ChatroomInfo> charroomList = new List<ChatroomInfo>();
+        ChatroomInfo info = new ChatroomInfo();
+        
         public static void Main(String[] args)
         {
             ChatServer chatServer = new ChatServer();
@@ -59,10 +61,18 @@ namespace Server
                     break;
 
                 case Packet.Commands.ChatRequest:
-                    //chatroomList.Index.Add(packet.getChatroomIndex()); 
-                    packet.getChatRequestData();
+                    info.memberList.Add(new ChatroomInfo.Member(socket, packet.getChatroomIndex()));
+                    foreach (string user in userList)
+                    {
+                        info.memberList.Add(new ChatroomInfo.Member(getSocketByName(user), -1));
+                    }
                     break;
 
+                case Packet.Commands.RegisterChatroom:
+                    int chatroomindex = packet.getChatroomIndex();
+                    int socketindex = packet.getRegisterChatroomData();
+                    charroomList[chatroomindex].setChatroomIndex(socket, socketindex);
+                    break;
                // case Packet.Commands.LeaveChatroom:
                   //  break;
                 
@@ -78,7 +88,15 @@ namespace Server
                     break;
             }
         }
-
+        public ChatSocket getSocketByName(string name)
+        {
+            for (int i=0; i<userList.Count;i++)
+            {
+                if (userList[i] == name)
+                    return clientList[i];
+            }
+            return null;
+        }
         public void sendUserList()
         {
             for (int i = 0; i < clientList.Count; i++)

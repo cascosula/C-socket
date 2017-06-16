@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ArrayUtility.cs" />
     <Compile Include="ChatLib.cs" />
+    <Compile Include="ChatroomInfo.cs" />
     <Compile Include="ChatServer.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
