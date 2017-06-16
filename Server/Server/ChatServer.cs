@@ -25,7 +25,7 @@ namespace Server
             Socket newsock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             newsock.Bind(ipep);
-            newsock.Listen(10);
+            newsock.Listen(1000);
 
             while (true)
             {
@@ -61,12 +61,18 @@ namespace Server
                 case Packet.Commands.ChatRequest:
                     break;
 
-                case Packet.Commands.LeaveChatroom:
-                    break;
+               // case Packet.Commands.LeaveChatroom:
+                  //  break;
                 
                 case Packet.Commands.TextMessage:
                     int chatroomIndex = packet.getChatroomIndex();
                     //packet.changeChatroomIndex(2);
+                    break;
+                case Packet.Commands.LogOut:
+                    Console.WriteLine(userList[clientList.IndexOf(socket)] + "µn¥X");
+                    userList.RemoveAt(clientList.IndexOf(socket));
+                    clientList.Remove(socket);
+                    socket.close();
                     break;
             }
         }
@@ -80,8 +86,7 @@ namespace Server
                 {
                     if (i != j)
                         exceptList.Add(userList[j]);
-                    
-                        
+
                 }
                 Packet packet = new Packet();
                 packet.makePacketUpdateUserList(exceptList);
