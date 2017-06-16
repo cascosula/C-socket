@@ -11,7 +11,7 @@ namespace Server
     {
         List<ChatSocket> clientList = new List<ChatSocket>();
         List<string> userList = new List<string>();
-
+        //List<ChatroomInfo> chatroomList= new List<ChatroomInfo>();
         public static void Main(String[] args)
         {
             ChatServer chatServer = new ChatServer();
@@ -59,6 +59,8 @@ namespace Server
                     break;
 
                 case Packet.Commands.ChatRequest:
+                    //chatroomList.Index.Add(packet.getChatroomIndex()); 
+                    packet.getChatRequestData();
                     break;
 
                 case Packet.Commands.LeaveChatroom:
