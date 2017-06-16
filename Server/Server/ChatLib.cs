@@ -16,7 +16,7 @@ namespace Server
         public static int port = 9877;
     }
 
-    public delegate byte[] StrHandler(byte[] str);
+    public delegate void StrHandler(byte[] str, ChatSocket socket);
 
     public class ChatSocket
     {
@@ -82,7 +82,7 @@ namespace Server
                 while (true)
                 {
                     byte[] line = receive();
-                    inHandler(line);
+                    inHandler(line, this);
                 }
             }
             catch (Exception ex)
