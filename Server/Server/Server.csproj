@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayUtility.cs" />
     <Compile Include="ChatLib.cs" />
     <Compile Include="ChatServer.cs" />
     <Compile Include="Packet.cs" />
